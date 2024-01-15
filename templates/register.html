@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            opacity: 1;
+        }
+
+        .container {
+            width: 900px;
+            padding: 20px;
+            background-color: #000000;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: justify;
+            transition: transform 0.3s ease-in-out;
+            opacity: 1.0;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .field-space {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        
+        label {
+            font-family: 'Poppins';
+            margin-bottom: 10px;
+            color: #ffffff;
+            width: 90%;
+            border-radius: 1px;
+        }
+
+        input {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 90%;
+        }
+
+        button {
+            padding: 15px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 20%;
+            margin-top: 40px;
+        }
+
+        button:hover {
+            background-color: #000000;
+        }
+
+        #error-message {
+            color: #FF0000;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        #content-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #content {
+            display: inline-block;
+            width: 100%;
+        }
+
+        #voice-button {
+            background-color: #4CAF50;
+        }        
+        #search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #search-input {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        #search-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 20%;
+            margin-left: 40px;
+        }
+
+        #search-buttons button {
+            padding: 10px;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 30%;
+            margin:auto
+        }
+
+        #search-buttons button:hover {
+            background-color: #ffffff;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="login-form" onsubmit="return validateFormAndRedirect()">
+
+            <div class="field-space">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="field-space">
+                <label for="ssi_id">SSII'D:</label>
+                <input type="number" id="ssi_id" name="ssi_id" required>
+            </div>
+
+            <div class="field-space">
+                <label for="aadhar">AADHARNO:</label>
+                <input type="number" id="aadhar" name="aadhar" required>
+            </div>
+
+            <div class="field-space">
+                <label for="phone">PHONENUMBER:</label>
+                <input type="number" id="phone" name="phone" required>
+            </div>
+
+        <div id="search-container">
+            <input type="text" id="search-input" name="q" placeholder="Search...">
+            <div id="search-buttons">
+                <button type="button" id="submit-button" class="icon" onclick="performSearch()">🔍<i
+                        class="fas fa-search"></i></button>
+                <button type="button" id="voice-button" onclick="startVoiceRecognition()">🎙️<i
+                        class="fas fa-microphone"></i></button>
+                <button type="button" id="camera-button" onclick="startCameraScan()">📷<i
+                        class="fas fa-camera"></i></button>
+            </div>
+        </div>
+
+        <button type="submit" style="width: 100%;">Submit</button>
+    </form>
+
+    <p id="error-message"></p>
+</div>
+
+<div id="results-container">
+
+</div>
+
+    <script>
+
+        function validateFormAndRedirect() {
+            var username = document.getElementById('username').value;
+
+            if (username.trim() === '') {
+                document.getElementById('error-message').innerText = 'Please enter the username.';
+                return false;
+            }
+
+            // Display entered values (modify this part based on your needs)
+            alert('Submitted values:\nUsername: ' + username);
+
+            window.location.href = 'second';
+
+            // Prevent the form from submitting naturally
+            return false;
+        }
+        
+
+        function performSearch() {
+            // Placeholder function for search functionality
+            alert('Performing search with query: ' + document.getElementById('search-input').value);
+        }
+
+
+        function startVoiceRecognition() {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function (event) {
+                var transcript = event.results[0][0].transcript;
+                document.getElementById('search-input').value = transcript;
+                document.getElementById('search-input').focus();
+            };
+
+            recognition.onerror = function (event) {
+                alert('Error occurred during voice recognition. Please try again.');
+            };
+
+            recognition.start();
+        }
+        function startCameraScan() {
+            var cameraButton = document.getElementById('camera-button');
+            cameraButton.classList.add('animate__animated', 'animate__shakeX');
+
+            var constraints = {
+                video: {
+                    facingMode: 'user'
+                }
+            };
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia(constraints)
+                    .then(function (stream) {
+                        var video = document.createElement('video');
+                        document.body.appendChild(video);
+                        video.srcObject = stream;
+                        video.play()
+                            .then(function () {
+                                // Call captureImage after the video starts playing
+                                captureImage(video);
+                            })
+                            .catch(function (error) {
+                                alert('Error playing video: ' + error.message);
+                            });
+                    })
+                    .catch(function (error) {
+                        alert('Error accessing camera. Please make sure it is not blocked.');
+                    });
+            } else {
+                alert('getUserMedia is not supported in your browser.');
+            }
+
+            setTimeout(function () {
+                cameraButton.classList.remove('animate__animated', 'animate__shakeX');
+            }, 1000);
+        }
+
+        function captureImage(video) {
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert the canvas content to a data URL representing the image
+            var imageDataURL = canvas.toDataURL('image/png');
+
+            // Remove the previous video element
+            video.parentNode.removeChild(video);
+
+            // Now you can use imageDataURL as needed, for example, send it to the server or display it
+            alert('Image captured! Data URL: ' + imageDataURL);
+        }
+        
+            
+
+</script>
+</body>
+</html>

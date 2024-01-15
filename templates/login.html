@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff; 
+            background-image: url();
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 300px; 
+            padding: 30px;
+            background-color: #000000;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            opacity: 1.0;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            font-family: 'Poppins';
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-family: 'Poppins';
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        input {
+            padding: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 15px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #error-message {
+            color: #FF0000;
+            margin-top: 15px;
+        }
+        .eye{
+            position: absolute;
+
+        }
+        #hide1{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="login-form" onsubmit="return validateForm()">
+            <label for="username">USERNAME</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">PASSWORD</label>
+            <input type="password" id="password" name="password" required>
+            <span class="eye">
+                <i id="hide1" class="fa-solid fa-eye-slash"></i>
+                <i id="hide2" class="fa-solid fa-eye"></i>
+            </span>
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="error-message"></p>
+    </div>
+    <script>
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username.trim() === '' || password.trim() === '') {
+                document.getElementById('error-message').innerText = 'Please enter both username and password.';
+                return false;
+            }
+
+            window.location.href = 'main';
+
+            return false; 
+        }
+    </script>
+</body>
+</html>
