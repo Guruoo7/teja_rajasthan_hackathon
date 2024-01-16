@@ -8,5 +8,6 @@ urlpatterns = [
      path('register.html', views.register, name="register"),
      path('login.html', views.login, name='login'),
      path('second.html', views.second, name='second'),
-     path('second/', views.second, name='second')
+     path('second/', views.second, name='second'),
+     path('register2/', views.register2, name='register2.html')
 ]

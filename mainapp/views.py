@@ -20,7 +20,10 @@ def login(request):
     if request.method == 'POST':
         return redirect('main')
     else:
-        return render(request, 'register.html')
+        return render(request, 'login.html')
 
 def second(request):
     return render(request, 'second.html')
+
+def register2(request):
+        return render(request, 'register2.html')

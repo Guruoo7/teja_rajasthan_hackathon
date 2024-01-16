@@ -58,7 +58,7 @@
             border-radius: 8px;
         }
 
-        button {
+        button[type="submit"] {
             padding: 15px;
             background-color: #0056b3;
             color: #fff;
@@ -68,8 +68,22 @@
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
+        button[type="submit"]:hover {
             background-color: #0056b3;
+        }
+
+        a button {
+            padding: 15px;
+            background-color: #0056b3; /* Blue color */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        a button:hover {
+            background-color: #0056b3; /* Darker blue color on hover */
         }
 
         #error-message {
@@ -83,12 +97,16 @@
         #hide1{
             display: none;
         }
+
+        p{
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form id="login-form" onsubmit="return validateForm()">
+        <form id="login-form" method="post" onsubmit="return validateForm()">
             <label for="username">USERNAME</label>
             <input type="text" id="username" name="username" required>
             <label for="password">PASSWORD</label>
@@ -98,6 +116,8 @@
                 <i id="hide2" class="fa-solid fa-eye"></i>
             </span>
             <button type="submit">Login</button>
+            <p>or</p>
+            <a href="register2"><button type="button">Register</button></a>
         </form>
 
         <p id="error-message"></p>
@@ -112,9 +132,9 @@
                 return false;
             }
 
-            window.location.href = 'main';
+            window.location.href = '/register/';
 
-            return false; 
+            return true; 
         }
     </script>
 </body>
