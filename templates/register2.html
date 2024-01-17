@@ -103,34 +103,28 @@
 <body>
     <div class="container">
         <h2>Register</h2>
-        <form id="register-form" method="post" onsubmit="return validateForm()">
+        <form id="register-form" method="post" onsubmit="return validateForm()" action="{% url 'login' %}">
+            
+            {% csrf_token %}
+            
             <label for="username">USERNAME</label>
             <input type="text" id="username" name="username" required>
+
             <label for="email">EMAIL</label>
             <input type="email" id="email" name="email" required>
+            
             <label for="password">PASSWORD</label>
             <input type="password" id="password" name="password" required>
+            
             <label for="confirm-password">CONFIRM PASSWORD</label>
             <input type="password" id="confirm-password" name="confirm-password" required>
-            <button type="button" onclick="showOTPSection()">Verify OTP</button>
-
-            <div id="otpContainer">
-                <label for="otpInput">WE HAVE SENT AN OTP TO YOUR</label>
-                <input type="text" id="otpInput" placeholder="Enter OTP" required>
-                <button type="button" onclick="verifyOTP()">Verify OTP</button>
-                <p id="error" style="color: red;"></p>
-                <p id="timer"></p>
-                <span id="resendLink" onclick="resendOTP()">Resend OTP</span>
-            </div>
+            
+            <button type="submit">register</button>            
         </form>
 
         <p id="error-message"></p>
     </div>
-
     <script>
-        let generatedOTP;
-        let countdown;
-
         function validateForm() {
             var username = document.getElementById('username').value;
             var email = document.getElementById('email').value;
@@ -141,60 +135,7 @@
                 document.getElementById('error-message').innerText = 'Please fill in all fields.';
                 return false;
             }
-
-            generateOTP();
-            showOTPSection();
-
-            return false; 
-        }
-
-        function generateOTP() {
-            generatedOTP = Math.floor(1000 + Math.random() * 9000);
-            alert("Simulated OTP: " + generatedOTP);
-            startTimer();
-        }
-
-        function showOTPSection() {
-            document.getElementById("otpContainer").style.display = "block";
-        }
-
-        function startTimer() {
-            let seconds = 60;
-            clearInterval(countdown);
-            countdown = setInterval(function () {
-                document.getElementById("timer").innerText = `Resend OTP in ${seconds} seconds`;
-                seconds--;
-
-                if (seconds < 0) {
-                    clearInterval(countdown);
-                    document.getElementById("timer").innerText = "";
-                }
-            }, 1000);
-        }
-
-        function verifyOTP() {
-            const enteredOTP = document.getElementById("otpInput").value;
-
-            if (enteredOTP === "") {
-                showError("Please enter the OTP.");
-            } else if (enteredOTP.length !== 4 || isNaN(enteredOTP)) {
-                showError("Invalid OTP. Please enter a 4-digit number.");
-            } else if (parseInt(enteredOTP) === generatedOTP) {
-                clearInterval(countdown);
-                alert("OTP Verified successfully!");
-
-                window.location.href = 'login';
-            } else {
-                showError("Incorrect OTP. Please try again.");
-            }
-        }
-        function showError(message) {
-            document.getElementById("error").innerText = message;
-        }
-
-        function resendOTP() {
-            generateOTP();
-            document.getElementById("error").innerText = "";
+            return true; 
         }
     </script>
 </body>

@@ -1,13 +1,16 @@
 from django.urls import path
-from.import views
+from .views import home, about, contact, register, login, second, register2
 
 urlpatterns = [
-     path('', views.home, name="home"),
-     path('about.html', views.about, name="about"),
-     path('contact.html', views.contact, name="contact"),
-     path('register.html', views.register, name="register"),
-     path('login.html', views.login, name='login'),
-     path('second.html', views.second, name='second'),
-     path('second/', views.second, name='second'),
-     path('register2/', views.register2, name='register2.html')
+    path('', home, name="home"),
+    path('about.html', about, name="about"),
+    path('contact.html', contact, name="contact"),
+    path('register.html', register, name="register"),
+    path('register/', register, name="register"),
+    path('login.html', login, name='login'),
+    path('second.html', second, name='second'),
+    path('second/', second, name='second'),
+    path('register2.html', register2, name="register2"),
+    path('register2/', register2, name='register2'),  # Use register2 as a namespace
+    path('register2/login/', login, name='register2_login'),  # Add a login URL under register2 namespace
 ]

@@ -106,7 +106,8 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form id="login-form" method="post" onsubmit="return validateForm()">
+        <form id="login-form" method="post" onsubmit="return validateForm()" action="{% url 'login' %}">
+            {% csrf_token %}
             <label for="username">USERNAME</label>
             <input type="text" id="username" name="username" required>
             <label for="password">PASSWORD</label>
@@ -119,7 +120,6 @@
             <p>or</p>
             <a href="register2"><button type="button">Register</button></a>
         </form>
-
         <p id="error-message"></p>
     </div>
     <script>

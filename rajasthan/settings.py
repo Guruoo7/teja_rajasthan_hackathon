@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+import pymongo
+
+client = pymongo.MongoClient("mongodb://localhost:27017/")  # Update with your MongoDB connection string
+db = client["rajasthan_hackathon"]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,6 +83,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'mongodb': {
+        'ENGINE': 'djongo',
+        'NAME': 'rajasthan_hackathon',  # Update with your MongoDB database name
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb://localhost:27017/',  # Update with your MongoDB connection string
+            'username': 'mguruprasanth2004',  # Update with your MongoDB username if applicable
+            'password': 'Guru2004',  # Update with your MongoDB password if applicable
+        }
     }
 }
 
