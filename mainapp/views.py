@@ -15,50 +15,86 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
-def register(request):
+def user_details(request):
     if request.method == 'POST':
+        username = request.POST.get('username')
+        ssi_id = request.POST.get('ssi_id')
+        aadhar = request.POST.get('aadhar')
+        phone = request.POST.get('phone')
+        complaint_name = request.POST.get('complaintname')
+        police_name = request.POST.get('policename')
+        dateOfComplaint = request.POST.get('date')
+        dateOfCrime = request.POST.get('dateofcrime')
+        fir_no = request.POST.get('firnumber')
+        status = request.POST.get('casestatus')
+        district = request.POST.get('district')
+        police_station_name = request.POST.get('stationname')
+        comp_add = request.POST.get('complaintaddr')
+        comp_desc = request.POST.get('complaintdesc')
+
+        client = pymongo.MongoClient("mongodb://localhost:27017/")
+        db = client["rajasthan_hackathon"]
+        users_collection = db["users"]
+
+        user_data = {
+            "username" : username,
+            "ssi_id" : ssi_id,
+            "aadhar" : aadhar,
+            "phone" : phone,
+            "complaint_name" : complaint_name,
+            "police_name" : police_name,
+            "Complaint_Date" : dateOfComplaint,
+            "Crime_Date" : dateOfCrime,
+            "FIR_NO" : fir_no,
+            "status" : status,
+            "District" : district,
+            "Police_Station_Name" : police_station_name,
+            "complaint_address" : comp_add,
+            "comp_desc" : comp_desc 
+        }   
+        
+        users_collection.insert_one(user_data)
+        print("j")
         return redirect('second.html')  
     else:
-        return render(request, 'register.html')
+        return render(request, 'user_details.html')
 
 def login(request):
     if request.method == 'POST':
-        return redirect('home')
+        return redirect('user_details')
     else:
         return render(request, 'login.html')
 
 def second(request):
     return render(request, 'second.html')
 
-def register2(request):
-    # print("Sss")
+def register(request):
+
     if request.method == 'POST':
+        # username = request.POST.get('username')
+        # email = request.POST.get('email')
+        # password = request.POST.get('password')
 
-        print("ssss")
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        # if not (username and email and password):
+        #     print("abs")
+        #     return render(request, 'register.html', {'error_message': 'Please fill in all fields.'})
+        
+        # client = pymongo.MongoClient("mongodb://localhost:27017/")
+        # db = client["rajasthan_hackathon"]
+        # users_collection = db["users"]
 
-        if not (username and email and password):
-            print("abs")
-            return render(request, 'register2.html', {'error_message': 'Please fill in all fields.'})
+        # user_data = {
+        #     'username': username,
+        #     'email': email,
+        #     'password': password
+        # }
 
-        # Save user data to MongoDB
-        client = pymongo.MongoClient("mongodb://localhost:27017/")
-        db = client["rajasthan_hackathon"]  # Update with your database name
-        users_collection = db["users"]
-
-        user_data = {
-            'username': username,
-            'email': email,
-            'password': password
-        }
-
-        users_collection.insert_one(user_data)
-        print("jesus")
-        return redirect('register')  # Redirect to login page after successful registration
+        # users_collection.insert_one(user_data)
+        # print("j")
+        return redirect('login') 
     else:
-        return render(request, 'register2.html')
+        print("g")
+        return render(request, 'register.html')
 
 def success(request):
     return render(request, "home.html")
